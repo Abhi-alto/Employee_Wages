@@ -7,7 +7,8 @@ namespace EmployeeWage
 {
     internal class Wages
     {
-        public static int rndm()               //for geting a random number
+        static int day_hr;
+        public int rndm()               //for geting a random number
         {
             Random ran = new Random();
             return (ran.Next(0, 2));               //randomly checking present or absent
@@ -15,7 +16,7 @@ namespace EmployeeWage
         public static int wage(int ch)                //for calculating the daily wage through switch case
         {
             int WaPhr = 20;
-            int day_hr = 0;
+            day_hr = 0;
             switch (ch)
             {
                 case 1:
@@ -32,23 +33,29 @@ namespace EmployeeWage
         }
         public static void compute(int ch)                //for calculating the monthly wage 
         {
+            int days = 0;
+            int totHrs = 4;                     //B/c time limit will only come if person is full time , then at the day 12th total hrs =96 , one more day and hrs=104 therefore to satisfy the condition of 100 hrs
             int ToMonWag = 0;                  //Monthly working days
-            for (int x = 1; x <= 20; x++)           //for every day asked if the person is absent or present ....total working days 20
+            int wa = Wages.wage(ch);                                 //called static method wage
+            while (days < 20 && totHrs < 100)    //loop for checking no. of hrs<101 and total daysless than 21
             {
-                int r = rndm();            //Calling a static function
-                switch (r)
+                Wages random = new Wages();         //creating object for class wage for non-static functions
+                int r = random.rndm();            //Calling a non-static function
+                if (r == 1)
                 {
-                    case 1:
-                        int wa = Wages.wage(ch);                                 //called static method wage
-                        Console.WriteLine("Employee is Present on day " + x);
-                        Console.WriteLine("Daily wage of the employee is = " + wa);
-                        ToMonWag = ToMonWag + wa;
-                        break;
-                    default:
-                        Console.WriteLine("Employee is Absent on day " + x);
-                        break;
+                    Console.WriteLine("Employee is Present today ");
+                    ToMonWag = ToMonWag + wa;
+                    days++;                //when employee is present increment the day number
+                    totHrs = totHrs + day_hr;
+                }
+                else
+                {
+                    Console.WriteLine("Employee is Absent today ");
+                    days++;                //when employee is absent increment the day number and day_hr but wage not calculated
+                    totHrs = totHrs + day_hr;
                 }
             }
+
             Console.WriteLine("Total wage of the employee for the month is = Rs." + ToMonWag);  //total monthly wage of the employee
         }
     }
