@@ -15,8 +15,8 @@ namespace EmployeeWage
         public static int wagee()
         {
             int WaPhr = 20;
-            int F_DaHr = 8;
-            return (WaPhr * F_DaHr);
+            int P_DaHr = 4;
+            return (WaPhr * P_DaHr);
 
         }
     }
