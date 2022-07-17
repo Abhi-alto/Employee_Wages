@@ -8,3 +8,4 @@ comp.AddDetails("TCS", 200, 25, 100);
 comp.AddDetails("Mahindra", 280, 20, 100);
 comp.AddDetails("L&T", 150, 27, 100);
 comp.perCompany();
+comp.QuerrySolved("IBM");

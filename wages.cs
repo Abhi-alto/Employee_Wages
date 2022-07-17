@@ -9,16 +9,19 @@ namespace EmployeeWage
     {
         static int day_hr;
         List<ParticularCompany> companyDetailsList;        //List for storing the companies with a company as an object in every element of the array
-        public int ToMonWag = 0;                  //total Monthly working wage
+        public Dictionary<string, ParticularCompany> companyDetailsDictionary;
+        public int ToMonWag = 0;                  //total Monthly working wage               
         public Wages()
         {
            this.companyDetailsList = new List<ParticularCompany>();       //no. of companies taken in the list
+           this.companyDetailsDictionary= new Dictionary<String, ParticularCompany>();
         }
 
         public void AddDetails(String company, int WaPhr, int max_workDays, int max_workHrs)
         {
             ParticularCompany NewCompany= new ParticularCompany(company, WaPhr, max_workDays, max_workHrs);
             companyDetailsList.Add(NewCompany);                                                             //every new object stored in the list
+            companyDetailsDictionary.Add(company, NewCompany);
         }
 
         public void perCompany()                //Per company Employee Wage ......Calling the TWage method in ParticularCompany class
@@ -45,7 +48,7 @@ namespace EmployeeWage
                     day_hr = 0;
                     break;
             }
-            Console.WriteLine(WaPhr * day_hr);
+           // Console.WriteLine(WaPhr * day_hr);
             return (WaPhr * day_hr);
         }
         public int compute(ParticularCompany Company)                //for calculating the monthly wage of an employee for each company
@@ -55,7 +58,7 @@ namespace EmployeeWage
 
             while (days < Company.max_workDays && totHrs < Company.max_workHrs)
             {
-                Console.Write("Wage for the day " + days + " is = ");
+                //Console.Write("Wage for the day " + days + " is = ");
                 ToMonWag = ToMonWag + (wage(Company.WaPhr));
                 days++;
                 totHrs = totHrs + day_hr;
@@ -66,6 +69,26 @@ namespace EmployeeWage
             }
             Console.WriteLine("Total Wage for the company is = " +ToMonWag);
             return ToMonWag;
+        }
+        public void QuerrySolved(String CheckCompany)                               //gtting employee wage for the particular company
+        {
+            int flag = 0;
+            foreach (var NewCompany in companyDetailsList)
+            {
+                if (((NewCompany.company).ToUpper()).Equals(CheckCompany.ToUpper()))
+                {
+                    flag = 1;
+                    break;
+                }
+            }
+            if (flag == 1)
+            {
+                Console.WriteLine("Total Wage for the employee for the company " + CheckCompany + " is Rs." + (companyDetailsDictionary[CheckCompany].totalWage));
+            }
+            else
+            {
+                Console.WriteLine("Company not in the storage data base");
+            }
         }
 
     }

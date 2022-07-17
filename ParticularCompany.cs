@@ -23,7 +23,6 @@ namespace EmployeeWage
         public void TWage(int totalWage)                    //TWage stores the total wage of an employee in a company
         {
             this.totalWage = totalWage;
-            Console.WriteLine(this.totalWage);
         }
     }
 }

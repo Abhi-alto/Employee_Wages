@@ -11,5 +11,6 @@ namespace EmployeeWage
         public void perCompany();
         public int wage(int wage);
         public int compute(ParticularCompany company);
+        public void QuerrySolved(String CheckCompany);
     }
 }
