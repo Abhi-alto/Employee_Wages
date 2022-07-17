@@ -1,15 +1,11 @@
 ﻿using EmployeeWage;
-Console.WriteLine("Welcome to Employee Wage Computation program");
-Wages random = new Wages();         //creating object for class wage for non-static functions
-int r = random.rndm();            //Calling a non-static function
-if (r == 1)
+Console.WriteLine("Enter 1 - Part time & 2- for full time employee");    //either part time or full time employee
+int choice = Convert.ToInt16(Console.ReadLine());
+if (choice < 1 || choice > 2)
 {
-    Console.WriteLine("Employee is Present");
-    int wa = Wages.wage();
-    if (wa != 0)
-        Console.WriteLine("Daily wage of the employee is = " + wa);
+    Console.WriteLine("Wrong input");
 }
 else
 {
-    Console.WriteLine("Employee is Absent");
+    Wages.compute(choice);
 }
