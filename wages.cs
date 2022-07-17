@@ -5,34 +5,32 @@ using System.Text;
 using System.Threading.Tasks;
 namespace EmployeeWage
 {
-    public interface IEmployeeWageForCompany
-    {
-        public int rndm();
-        public int wage();
-        public void compute();
-    }
-    internal class Wages : IEmployeeWageForCompany
+    public class Wages : IEmployeeWageForCompany
     {
         static int day_hr;
-        //static int WaPhr = 20;
-        public String company;
-        public int WaPhr;
-        public int max_workDays;
-        public int max_workHrs;
+        ParticularCompany[] companyDetails;        //Array for storing the companies with a company as an object in every element of the array
         public int ToMonWag = 0;                  //total Monthly working wage
-        public Wages(String company, int WaPhr, int max_workDays, int max_workHrs)
+        int Company_number = 0;
+        public Wages()
         {
-            this.company = company;
-            this.WaPhr = WaPhr;
-            this.max_workDays = max_workDays;
-            this.max_workHrs = max_workHrs;
+            this.companyDetails = new ParticularCompany[5];       //no. of companies taken is 5
         }
-        public int rndm()               //for geting a random number
+
+        public void AddDetails(String company, int WaPhr, int max_workDays, int max_workHrs)
         {
-            Random ran = new Random();
-            return (ran.Next(0, 2));               //randomly checking present or absent
+            companyDetails[Company_number] = new ParticularCompany(company, WaPhr, max_workDays, max_workHrs);
+            Company_number++;
         }
-        public int wage()                //for calculating the daily wage through switch case
+
+        public void perCompany()                //Per company Employee Wage ......Calling the TWage method in ParticularCompany class
+        {
+            for (int x = 0; x < 5; x++)
+            {
+                Console.Write("Total Wage for the company " + companyDetails[x].company + " is = ");
+                companyDetails[x].TWage(compute(this.companyDetails[x]));
+            }
+        }
+        public int wage(int WaPhr)                //for calculating the daily wage through switch case.....takes particular company's wage per hr as input
         {
             int ch = new Random().Next(0, 3);
             day_hr = 0;
@@ -40,37 +38,33 @@ namespace EmployeeWage
             {
                 case 1:
                     day_hr = 4;
-                    // Console.WriteLine("Employee is working Part Time");
                     break;
                 case 2:
                     day_hr = 8;
-                    // Console.WriteLine("Employee is working Full Time");
                     break;
                 default:
                     day_hr = 0;
-                    // Console.WriteLine("Absent");
                     break;
             }
             return (WaPhr * day_hr);
         }
-        public void compute()                //for calculating the monthly wage for each company
+        public int compute(ParticularCompany Company)                //for calculating the monthly wage of an employee for each company
         {
-            Console.WriteLine(company);
             int days = 0;
             int totHrs = 0;                     //total hrs present or absent
 
-            while (days < max_workDays && totHrs < max_workHrs)
+            while (days < Company.max_workDays && totHrs < Company.max_workHrs)
             {
-                //Wages obj = new Wages();
-                ToMonWag = ToMonWag + (wage());
+                ToMonWag = ToMonWag + (wage(Company.WaPhr));
                 days++;
                 totHrs = totHrs + day_hr;
-                if (totHrs > max_workHrs)                           //If day <20 &  total hrs > max_workHrs
+                if (totHrs > Company.max_workHrs)                           //If day <20 &  total hrs > max_workHrs
                 {
-                    ToMonWag = ToMonWag - ((totHrs - max_workHrs) * WaPhr);
+                    ToMonWag = ToMonWag - ((totHrs - Company.max_workHrs) * Company.WaPhr);
                 }
             }
-            Console.WriteLine("Total wage of the employee for the month is = Rs." + ToMonWag);  //total monthly wage of the employee
+            return ToMonWag;
         }
+
     }
 }
