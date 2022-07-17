@@ -12,5 +12,12 @@ namespace EmployeeWage
             Random ran = new Random();
             return (ran.Next(0, 2));
         }
+        public static int wagee()
+        {
+            int WaPhr = 20;
+            int F_DaHr = 8;
+            return (WaPhr * F_DaHr);
+
+        }
     }
 }
