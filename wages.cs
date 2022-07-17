@@ -25,7 +25,7 @@ namespace EmployeeWage
         {
             foreach (var NewCompany in companyDetailsList)
             {
-                Console.Write("Total Wage for the company " + NewCompany.company + " is = ");
+                Console.WriteLine( NewCompany.company + " - ");
                 NewCompany.TWage(compute(NewCompany));
             }
         }
@@ -45,6 +45,7 @@ namespace EmployeeWage
                     day_hr = 0;
                     break;
             }
+            Console.WriteLine(WaPhr * day_hr);
             return (WaPhr * day_hr);
         }
         public int compute(ParticularCompany Company)                //for calculating the monthly wage of an employee for each company
@@ -54,6 +55,7 @@ namespace EmployeeWage
 
             while (days < Company.max_workDays && totHrs < Company.max_workHrs)
             {
+                Console.Write("Wage for the day " + days + " is = ");
                 ToMonWag = ToMonWag + (wage(Company.WaPhr));
                 days++;
                 totHrs = totHrs + day_hr;
@@ -62,6 +64,7 @@ namespace EmployeeWage
                     ToMonWag = ToMonWag - ((totHrs - Company.max_workHrs) * Company.WaPhr);
                 }
             }
+            Console.WriteLine("Total Wage for the company is = " +ToMonWag);
             return ToMonWag;
         }
 
