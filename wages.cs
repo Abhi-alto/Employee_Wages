@@ -9,14 +9,24 @@ namespace EmployeeWage
     {
         public int rndm();
         public int wage();
-        public void compute(String company, int WaPhr, int max_workDays, int max_workHrs);
+        public void compute();
     }
-
-
     internal class Wages : IEmployeeWageForCompany
     {
         static int day_hr;
-        static int WaPhr = 20;
+        //static int WaPhr = 20;
+        public String company;
+        public int WaPhr;
+        public int max_workDays;
+        public int max_workHrs;
+        public int ToMonWag = 0;                  //total Monthly working wage
+        public Wages(String company, int WaPhr, int max_workDays, int max_workHrs)
+        {
+            this.company = company;
+            this.WaPhr = WaPhr;
+            this.max_workDays = max_workDays;
+            this.max_workHrs = max_workHrs;
+        }
         public int rndm()               //for geting a random number
         {
             Random ran = new Random();
@@ -43,16 +53,16 @@ namespace EmployeeWage
             }
             return (WaPhr * day_hr);
         }
-        public void compute(String company, int WaPhr, int max_workDays, int max_workHrs)                //for calculating the monthly wage for each company
+        public void compute()                //for calculating the monthly wage for each company
         {
             Console.WriteLine(company);
             int days = 0;
             int totHrs = 0;                     //total hrs present or absent
-            int ToMonWag = 0;                  //total Monthly working wage
+
             while (days < max_workDays && totHrs < max_workHrs)
             {
-                Wages obj = new Wages();
-                ToMonWag = ToMonWag + (obj.wage());
+                //Wages obj = new Wages();
+                ToMonWag = ToMonWag + (wage());
                 days++;
                 totHrs = totHrs + day_hr;
                 if (totHrs > max_workHrs)                           //If day <20 &  total hrs > max_workHrs
