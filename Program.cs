@@ -1,10 +1,13 @@
 ﻿using EmployeeWage;
 Console.WriteLine("Welcome to Employee Wage Computation program");
-int r = Wages.Rndm();            //Calling a static function
+Wages random = new Wages();         //creating object for class wage for non-static functions
+int r = random.rndm();            //Calling a non-static function
 if (r == 1)
 {
     Console.WriteLine("Employee is Present");
-    Console.WriteLine("Daily wage of the employee is = " + (Wages.wagee()));
+    int wa = Wages.wage();
+    if (wa != 0)
+        Console.WriteLine("Daily wage of the employee is = " + wa);
 }
 else
 {
