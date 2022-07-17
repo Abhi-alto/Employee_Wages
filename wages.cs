@@ -8,26 +8,25 @@ namespace EmployeeWage
     public class Wages : IEmployeeWageForCompany
     {
         static int day_hr;
-        ParticularCompany[] companyDetails;        //Array for storing the companies with a company as an object in every element of the array
+        List<ParticularCompany> companyDetailsList;        //List for storing the companies with a company as an object in every element of the array
         public int ToMonWag = 0;                  //total Monthly working wage
-        int Company_number = 0;
         public Wages()
         {
-            this.companyDetails = new ParticularCompany[5];       //no. of companies taken is 5
+           this.companyDetailsList = new List<ParticularCompany>();       //no. of companies taken in the list
         }
 
         public void AddDetails(String company, int WaPhr, int max_workDays, int max_workHrs)
         {
-            companyDetails[Company_number] = new ParticularCompany(company, WaPhr, max_workDays, max_workHrs);
-            Company_number++;
+            ParticularCompany NewCompany= new ParticularCompany(company, WaPhr, max_workDays, max_workHrs);
+            companyDetailsList.Add(NewCompany);                                                             //every new object stored in the list
         }
 
         public void perCompany()                //Per company Employee Wage ......Calling the TWage method in ParticularCompany class
         {
-            for (int x = 0; x < 5; x++)
+            foreach (var NewCompany in companyDetailsList)
             {
-                Console.Write("Total Wage for the company " + companyDetails[x].company + " is = ");
-                companyDetails[x].TWage(compute(this.companyDetails[x]));
+                Console.Write("Total Wage for the company " + NewCompany.company + " is = ");
+                NewCompany.TWage(compute(NewCompany));
             }
         }
         public int wage(int WaPhr)                //for calculating the daily wage through switch case.....takes particular company's wage per hr as input
